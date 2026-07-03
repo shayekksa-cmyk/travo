@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: 'Thmanyah Serif'; src: url('./assets/thmanyah-serif.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  @keyframes hCarBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+  @keyframes hPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.25)}}
+  @keyframes hFlow{to{stroke-dashoffset:-20}}
+  @keyframes hFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  html{scroll-behavior:smooth}
+</style>
+</helmet>
+<div dir="{{ dir }}" style="min-height:100vh;background:#F3F6F1;font-family:'Readex Pro',system-ui,sans-serif;color:#12241A;overflow-x:hidden">
+
+  <!-- NAV -->
+  <div style="{{ navBarStyle }}">
+  <div style="{{ navBarOverlayStyle }}"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 40px;max-width:1240px;margin:0 auto;flex-wrap:wrap;gap:14px;position:relative;z-index:1">
+    <div style="background:rgba(255,255,255,.92);border-radius:12px;padding:6px 12px;box-shadow:0 4px 14px rgba(0,0,0,.12)">
+      <img src="assets/travo-logo-en.png" alt="TRAVO" style="height:32px;width:auto;object-fit:contain;display:block">
+    </div>
+    <div style="display:flex;align-items:center;gap:26px;flex-wrap:wrap">
+      <a href="#home" style="{{ navLinkStyle.home }}" style-hover="color:#8FD65C">{{ d.navHome }}</a>
+      <a href="#about" style="{{ navLinkStyle.about }}" style-hover="color:#8FD65C">{{ d.navAbout }}</a>
+      <a href="#services" style="{{ navLinkStyle.services }}" style-hover="color:#8FD65C">{{ d.navServices }}</a>
+      <a href="#cities" style="{{ navLinkStyle.cities }}" style-hover="color:#8FD65C">{{ d.navCities }}</a>
+      <a href="#contact" style="{{ navLinkStyle.contact }}" style-hover="color:#8FD65C">{{ d.navContact }}</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button onClick="{{ toggleLang }}" style="padding:9px 15px;border-radius:11px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.92);font-family:'Readex Pro',sans-serif;font-size:12.5px;font-weight:700;color:#12241A;cursor:pointer;white-space:nowrap" style-hover="background:#fff">🌐 {{ langLabel }}</button>
+      <button onClick="{{ openAppModal }}" style="{{ accentBtnStyle }}" style-hover="filter:brightness(1.08)">{{ d.getApp }}</button>
+    </div>
+  </div>
+  </div>
+
+  <!-- HERO -->
+  <div id="home" style="max-width:1240px;margin:0 auto;padding:36px 40px 10px;display:flex;align-items:center;gap:50px;flex-wrap:wrap;position:relative;scroll-margin-top:90px">
+    <div style="position:absolute;top:-60px;inset-inline-end:0;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(93,168,58,.14),transparent 70%);pointer-events:none;z-index:0"></div>
+
+    <div style="flex:1;min-width:320px;z-index:1">
+      <div style="{{ heroBadgeStyle }}">{{ d.heroBadge }}</div>
+      <div style="font-family:'Thmanyah Serif','Readex Pro',serif;font-size:46px;line-height:1.28;margin-top:18px;color:#123524">{{ d.heroTitle }}</div>
+      <div style="font-size:15.5px;color:#5C6E62;margin-top:16px;line-height:1.8;max-width:460px;font-weight:500">{{ d.heroSub }}</div>
+      <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
+        <div onClick="{{ openAppModal }}" style="display:flex;align-items:center;gap:9px;background:#12241A;color:#fff;padding:11px 18px;border-radius:13px;cursor:pointer;transition:transform .2s ease" style-hover="transform:translateY(-3px)"><span style="font-size:18px"></span><div><div style="font-size:8px;color:#B9C6B4">{{ d.downloadOn }}</div><div style="font-size:13px;font-weight:700">App Store</div></div></div>
+        <div onClick="{{ openAppModal }}" style="display:flex;align-items:center;gap:9px;background:#12241A;color:#fff;padding:11px 18px;border-radius:13px;cursor:pointer;transition:transform .2s ease" style-hover="transform:translateY(-3px)"><span style="font-size:18px">▶</span><div><div style="font-size:8px;color:#B9C6B4">{{ d.getItOn }}</div><div style="font-size:13px;font-weight:700">Google Play</div></div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px;margin-top:30px">
+        <div><div style="font-size:20px;font-weight:800;color:#123524">42K+</div><div style="font-size:11px;color:#8A968D;font-weight:600">{{ d.statFamilies }}</div></div>
+        <div style="width:1px;height:30px;background:#DCE6D6"></div>
+        <div><div style="font-size:20px;font-weight:800;color:#123524">4.8 ⭐</div><div style="font-size:11px;color:#8A968D;font-weight:600">{{ d.statRating }}</div></div>
+        <div style="width:1px;height:30px;background:#DCE6D6"></div>
+        <div><div style="font-size:20px;font-weight:800;color:#123524">18</div><div style="font-size:11px;color:#8A968D;font-weight:600">{{ d.statCities }}</div></div>
+      </div>
+    </div>
+
+    <!-- phone mockup -->
+    <div style="flex-shrink:0;z-index:1;animation:hFloat 5s ease-in-out infinite">
+      <div style="width:270px;height:566px;background:#0E1912;border-radius:42px;padding:10px;box-shadow:0 50px 100px -36px rgba(18,53,36,.4),0 0 0 2px #1c2a20;position:relative">
+        <div style="position:absolute;top:18px;left:50%;transform:translateX(-50%);width:100px;height:24px;background:#0E1912;border-radius:0 0 16px 16px;z-index:30"></div>
+        <div style="width:100%;height:100%;border-radius:32px;overflow:hidden;position:relative;background:#EAF1E4">
+
+          <!-- map background -->
+          <div style="position:absolute;inset:0;background:#EAF1E4">
+            <div style="position:absolute;top:8%;left:-10%;width:38%;height:130%;background:#fff;transform:rotate(9deg)"></div>
+            <div style="position:absolute;top:-4%;left:34%;width:30%;height:140%;background:#fff;transform:rotate(-7deg)"></div>
+            <div style="position:absolute;top:6%;left:60%;width:26%;height:130%;background:#fff;transform:rotate(11deg)"></div>
+            <div style="position:absolute;top:10%;left:38%;width:8%;height:120%;background:#D9C879;opacity:.55;transform:rotate(-7deg)"></div>
+            <div style="position:absolute;top:16%;left:8%;width:15%;height:9%;background:#DCE8D3;border-radius:4px"></div>
+            <div style="position:absolute;top:30%;left:70%;width:16%;height:10%;background:#DCE8D3;border-radius:4px"></div>
+            <div style="position:absolute;top:48%;left:14%;width:14%;height:8%;background:#DCE8D3;border-radius:4px"></div>
+            <div style="position:absolute;top:60%;left:66%;width:15%;height:9%;background:#DCE8D3;border-radius:4px"></div>
+            <div style="position:absolute;top:76%;left:20%;width:16%;height:9%;background:#DCE8D3;border-radius:4px"></div>
+          </div>
+
+          <!-- route -->
+          <svg viewBox="0 0 270 340" style="position:absolute;top:0;left:0;width:100%;height:63%" preserveAspectRatio="none">
+            <path d="M95 340 L95 230 L175 130 L175 80" stroke="#5DA83A" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <!-- driver puck -->
+          <div style="position:absolute;top:64%;left:35%;width:26px;height:26px;border-radius:50%;background:rgba(93,168,58,.25);display:flex;align-items:center;justify-content:center">
+            <div style="width:14px;height:14px;border-radius:5px;background:#1B5E20;box-shadow:0 0 0 2px #fff"></div>
+          </div>
+          <!-- destination pin -->
+          <div style="position:absolute;top:23%;left:63%;transform:translate(-50%,-100%)">
+            <div style="width:30px;height:30px;border-radius:50% 50% 50% 0;background:#1B5E20;transform:rotate(-45deg);box-shadow:0 6px 14px rgba(18,53,36,.35)"></div>
+          </div>
+
+          <!-- status bar -->
+          <div dir="ltr" style="position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:14px 22px 0;font-size:13px;font-weight:700;color:#12241A;z-index:20">
+            <span>9:41</span>
+            <span style="display:flex;gap:4px;align-items:center;font-size:11px">📶 📡 🔋</span>
+          </div>
+
+          <!-- SOS + ETA row -->
+          <div style="position:absolute;top:56px;left:14px;right:14px;display:flex;align-items:center;gap:8px;z-index:20">
+            <div style="background:#fff;color:#D33;font-size:11px;font-weight:800;padding:9px 14px;border-radius:999px;box-shadow:0 6px 16px -8px rgba(0,0,0,.3)">SOS</div>
+            <div style="flex:1;background:#fff;border-radius:999px;padding:9px 14px;display:flex;align-items:center;justify-content:space-between;gap:6px;box-shadow:0 6px 16px -8px rgba(0,0,0,.3)">
+              <span style="width:7px;height:7px;border-radius:50%;background:#5DA83A;flex-shrink:0"></span>
+              <span style="font-size:11.5px;font-weight:700;color:#12241A;flex:1;text-align:center;white-space:nowrap">في الطريق إليك · 6 دقائق</span>
+              <span style="color:#8A968D;font-size:11px">‹</span>
+            </div>
+          </div>
+
+          <!-- bottom sheet -->
+          <div style="position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:14px 16px 16px;box-shadow:0 -10px 26px -14px rgba(0,0,0,.25);z-index:20">
+            <div style="width:34px;height:4px;background:#E3EBDF;border-radius:99px;margin:0 auto 12px"></div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:38px;height:38px;border-radius:11px;background:#E7F1E1;flex-shrink:0"></div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13.5px;font-weight:800;color:#123524">ياسر القحطاني</div>
+                <div style="font-size:10.5px;color:#8A968D;font-weight:600">4.8 ⭐ · فورد تيريتوري 2023</div>
+              </div>
+              <div style="width:38px;height:38px;border-radius:50%;background:#C7D6C0;flex-shrink:0"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <div style="flex:1;background:#5DA83A;color:#fff;font-size:11.5px;font-weight:700;padding:9px;border-radius:11px;text-align:center">💬 دردشة</div>
+              <div style="flex:1;background:#F3F6F1;color:#123524;font-size:11.5px;font-weight:700;padding:9px;border-radius:11px;text-align:center">📞 اتصال</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px;margin-top:12px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:7px;height:7px;border-radius:50%;background:#5DA83A;flex-shrink:0"></span>
+                <span style="font-size:10.5px;color:#5C6E62;font-weight:600">المنزل</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:7px;height:7px;border-radius:2px;border:1.5px solid #1B5E20;flex-shrink:0"></span>
+                <span style="font-size:10.5px;color:#5C6E62;font-weight:600">مدرسة جلوري الدولية</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div id="about" style="max-width:1240px;margin:0 auto;padding:90px 40px 20px;scroll-margin-top:90px">
+  <div style="{{ revealStyle.about }};display:flex;align-items:center;gap:50px;flex-wrap:wrap">
+    <div style="flex:1;min-width:280px;display:flex;justify-content:center">
+      <div style="width:100%;max-width:420px;aspect-ratio:1/0.8;border-radius:26px;overflow:hidden;box-shadow:0 24px 50px -28px rgba(18,53,36,.35);position:relative;background:#fff;display:flex;align-items:center;justify-content:center;padding:56px;box-sizing:border-box">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="about-photo" shape="rect" fit="contain" style="width:100%;height:100%" placeholder="{{ d.aboutPhotoPlaceholder }}" hint-size="100%,100%"></x-import>
+      </div>
+    </div>
+    <div style="flex:1;min-width:300px">
+      <div style="display:inline-flex;align-items:center;gap:7px;background:#E7F1E1;border:1px solid #D3E6C9;padding:6px 13px;border-radius:999px;font-size:11.5px;font-weight:700;color:#1B5E20;white-space:nowrap">{{ d.navAbout }}</div>
+      <div style="font-family:'Thmanyah Serif','Readex Pro',serif;font-size:32px;line-height:1.35;margin-top:16px;color:#123524">{{ d.aboutTitle }}</div>
+      <div style="font-size:14px;color:#5C6E62;margin-top:14px;line-height:1.85;font-weight:500">{{ d.aboutBody }}</div>
+      <div style="display:flex;gap:28px;margin-top:26px;flex-wrap:wrap">
+        <div><div style="font-size:20px;font-weight:800;color:#123524">2022</div><div style="font-size:11px;color:#8A968D;font-weight:600">{{ d.aboutSince }}</div></div>
+        <div><div style="font-size:20px;font-weight:800;color:#123524">3,200+</div><div style="font-size:11px;color:#8A968D;font-weight:600">{{ d.aboutDrivers }}</div></div>
+        <div><div style="font-size:20px;font-weight:800;color:#123524">99%</div><div style="font-size:11px;color:#8A968D;font-weight:600">{{ d.aboutOnTime }}</div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- BECOME A DRIVER -->
+  <div id="driver" style="margin-top:90px;position:relative;scroll-margin-top:90px">
+    <div style="{{ driverBandStyle }}">
+      <div style="max-width:1240px;margin:0 auto;padding:80px 40px;display:flex;align-items:center;gap:50px;flex-wrap:wrap-reverse;position:relative;z-index:1">
+        <div style="flex:1;min-width:300px">
+          <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:6px 13px;border-radius:999px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap">{{ d.driverBadge }}</div>
+          <div style="font-family:'Thmanyah Serif','Readex Pro',serif;font-size:34px;line-height:1.32;margin-top:18px;color:#fff">{{ d.driverTitle }}</div>
+          <div style="font-size:14.5px;color:#DCEFD8;margin-top:14px;line-height:1.85;max-width:460px;font-weight:500">{{ d.driverBody }}</div>
+          <button onClick="{{ openAppModal }}" style="margin-top:24px;padding:13px 26px;border-radius:13px;border:none;background:#fff;color:#123524;font-family:'Readex Pro',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="transform:translateY(-2px)">{{ d.driverCta }}</button>
+        </div>
+        <div style="flex-shrink:0;width:340px;max-width:100%;aspect-ratio:4/3;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -24px rgba(0,0,0,.4)">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="driver-photo" shape="rect" style="width:100%;height:100%" placeholder="{{ d.driverPhotoPlaceholder }}" hint-size="100%,100%"></x-import>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div id="services" style="max-width:1240px;margin:0 auto;padding:90px 40px 20px;scroll-margin-top:90px">
+  <div style="{{ revealStyle.services }}">
+    <div style="text-align:center;max-width:560px;margin:0 auto">
+      <div style="font-family:'Thmanyah Serif','Readex Pro',serif;font-size:32px;color:#123524">{{ d.featuresTitle }}</div>
+      <div style="font-size:14px;color:#5C6E62;margin-top:10px;font-weight:500;line-height:1.7">{{ d.featuresSub }}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px">
+      <div style="background:#fff;border:1px solid #E3EBDF;border-radius:22px;padding:30px 26px;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-6px);box-shadow:0 20px 40px -24px rgba(18,53,36,.35)">
+        <div style="width:52px;height:52px;border-radius:15px;background:#E7F1E1;display:flex;align-items:center;justify-content:center;font-size:24px">🛡️</div>
+        <div style="font-size:17px;font-weight:700;margin-top:18px;color:#123524">{{ d.feat1Title }}</div>
+        <div style="font-size:13px;color:#5C6E62;margin-top:9px;line-height:1.7">{{ d.feat1Body }}</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E3EBDF;border-radius:22px;padding:30px 26px;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-6px);box-shadow:0 20px 40px -24px rgba(18,53,36,.35)">
+        <div style="width:52px;height:52px;border-radius:15px;background:#E7F1E1;display:flex;align-items:center;justify-content:center;font-size:24px">📍</div>
+        <div style="font-size:17px;font-weight:700;margin-top:18px;color:#123524">{{ d.feat2Title }}</div>
+        <div style="font-size:13px;color:#5C6E62;margin-top:9px;line-height:1.7">{{ d.feat2Body }}</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E3EBDF;border-radius:22px;padding:30px 26px;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-6px);box-shadow:0 20px 40px -24px rgba(18,53,36,.35)">
+        <div style="width:52px;height:52px;border-radius:15px;background:#E7F1E1;display:flex;align-items:center;justify-content:center;font-size:24px">💳</div>
+        <div style="font-size:17px;font-weight:700;margin-top:18px;color:#123524">{{ d.feat3Title }}</div>
+        <div style="font-size:13px;color:#5C6E62;margin-top:9px;line-height:1.7">{{ d.feat3Body }}</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- SERVICES MENU (colorful grid) -->
+  <div id="menu" style="max-width:1240px;margin:0 auto;padding:90px 40px 20px;scroll-margin-top:90px">
+  <div style="{{ revealStyle.menu }}">
+    <div style="text-align:center;max-width:560px;margin:0 auto">
+      <div style="font-family:'Thmanyah Serif','Readex Pro',serif;font-size:32px;color:#123524">{{ d.menuTitle }}</div>
+      <div style="font-size:14px;color:#5C6E62;margin-top:10px;font-weight:500;line-height:1.7">{{ d.menuSub }}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px">
+      <sc-for list="{{ menuCards }}" as="m" hint-placeholder-count="4">
+        <div style="{{ m.cardStyle }}" style-hover="transform:translateY(-8px)">
+          <div style="{{ m.titleStyle }}">{{ m.title }}</div>
+          <div style="margin-top:22px;display:flex;flex-direction:column;gap:14px;flex:1">
+            <sc-for list="{{ m.items }}" as="it" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:9px">
+                <span style="{{ m.iconStyle }}">{{ it.icon }}</span>
+                <span style="{{ m.itemStyle }}">{{ it.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="{{ m.arrowStyle }}">‹</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </div>
+
+  <!-- CITIES -->
+  <div id="cities" style="max-width:1240px;margin:0 auto;padding:90px 40px 20px;scroll-margin-top:90px">
+  <div style="{{ revealStyle.cities }}">
+    <div style="text-align:center;max-width:560px;margin:0 auto">
+      <div style="font-family:'Thmanyah Serif','Readex Pro',serif;font-size:32px;color:#123524">{{ d.citiesTitle }}</div>
+      <div style="font-size:14px;color:#5C6E62;margin-top:10px;font-weight:500;line-height:1.7">{{ d.citiesSub }}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:40px">
+      <sc-for list="{{ cities }}" as="c" hint-placeholder-count="12">
+        <div style="background:#fff;border:1px solid #E3EBDF;border-radius:16px;padding:16px 10px;text-align:center;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;cursor:default" style-hover="transform:translateY(-4px);border-color:#5DA83A;box-shadow:0 14px 26px -18px rgba(18,53,36,.4)">
+          <div style="font-size:20px">🏙️</div>
+          <div style="font-size:12.5px;font-weight:700;color:#123524;margin-top:8px">{{ c.name }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="contact" style="max-width:1240px;margin:0 auto;padding:90px 40px 20px;scroll-margin-top:90px">
+  <div style="{{ revealStyle.contact }};display:flex;gap:40px;flex-wrap:wrap">
+    <div style="flex:1;min-width:280px">
+      <div style="font-family:'Thmanyah Serif','Readex Pro',serif;font-size:32px;color:#123524">{{ d.contactTitle }}</div>
+      <div style="font-size:14px;color:#5C6E62;margin-top:12px;line-height:1.85;font-weight:500;max-width:420px">{{ d.contactSub }}</div>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-top:26px">
+        <div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:12px;background:#E7F1E1;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">📞</div><span style="font-size:13.5px;font-weight:700;color:#12241A;direction:ltr">920001234</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:12px;background:#E7F1E1;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">✉️</div><span style="font-size:13.5px;font-weight:700;color:#12241A;direction:ltr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dab2bfb6b6b59aaea8bbacb5f4bbaaaa">[email&#160;protected]</a></span></div>
+        <div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:12px;background:#E7F1E1;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">📍</div><span style="font-size:13.5px;font-weight:700;color:#12241A">{{ d.contactAddress }}</span></div>
+      </div>
+    </div>
+    <div style="flex:1;min-width:300px;background:#fff;border:1px solid #E3EBDF;border-radius:22px;padding:26px;min-height:280px">
+      <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
+      <div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;padding:20px 0">
+        <div style="width:56px;height:56px;border-radius:50%;background:#E7F1E1;display:flex;align-items:center;justify-content:center;font-size:26px">✅</div>
+        <div style="font-size:15px;font-weight:700;color:#123524">{{ d.formSentTitle }}</div>
+        <div style="font-size:12.5px;color:#5C6E62;line-height:1.7;max-width:280px">{{ d.formSentSub }}</div>
+      </div>
+      </sc-if>
+      <sc-if value="{{ showContactForm }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ submitContact }}" style="display:flex;flex-direction:column;gap:12px">
+        <input required="{{ true }}" value="{{ contact.name }}" onInput="{{ setContactName }}" placeholder="{{ d.formName }}" style="padding:13px 15px;border-radius:12px;border:1px solid #E3EBDF;font-family:'Readex Pro',sans-serif;font-size:13px;background:#F7FAF5">
+        <input required="{{ true }}" type="email" value="{{ contact.email }}" onInput="{{ setContactEmail }}" placeholder="{{ d.formEmail }}" style="padding:13px 15px;border-radius:12px;border:1px solid #E3EBDF;font-family:'Readex Pro',sans-serif;font-size:13px;background:#F7FAF5;direction:ltr;text-align:right">
+        <textarea required="{{ true }}" value="{{ contact.message }}" onInput="{{ setContactMessage }}" placeholder="{{ d.formMessage }}" rows="4" style="padding:13px 15px;border-radius:12px;border:1px solid #E3EBDF;font-family:'Readex Pro',sans-serif;font-size:13px;background:#F7FAF5;resize:none"></textarea>
+        <button type="submit" style="{{ formSendStyle }}" style-hover="filter:brightness(1.08)">{{ d.formSend }}</button>
+      </form>
+      </sc-if>
+    </div>
+  </div>
+  </div>
+
+  <!-- CTA BANNER -->
+  <div id="cta" style="max-width:1240px;margin:70px auto 0;padding:0 40px">
+    <div style="{{ ctaBannerStyle }}">
+      <div style="position:absolute;inset-inline-end:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(139,196,74,.16)"></div>
+      <div style="max-width:460px;z-index:1">
+        <div style="font-family:'Thmanyah Serif','Readex Pro',serif;font-size:28px;color:#fff;line-height:1.35">{{ d.ctaTitle }}</div>
+        <div style="font-size:13.5px;color:#C7DAC0;margin-top:10px;line-height:1.7">{{ d.ctaSub }}</div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;z-index:1">
+        <div onClick="{{ openAppModal }}" style="display:flex;align-items:center;gap:9px;background:#fff;color:#12241A;padding:11px 18px;border-radius:13px;cursor:pointer;transition:transform .2s ease" style-hover="transform:translateY(-3px)"><span style="font-size:18px"></span><div><div style="font-size:8px;color:#8A968D">{{ d.downloadOn }}</div><div style="font-size:13px;font-weight:700">App Store</div></div></div>
+        <div onClick="{{ openAppModal }}" style="display:flex;align-items:center;gap:9px;background:#fff;color:#12241A;padding:11px 18px;border-radius:13px;cursor:pointer;transition:transform .2s ease" style-hover="transform:translateY(-3px)"><span style="font-size:18px">▶</span><div><div style="font-size:8px;color:#8A968D">{{ d.getItOn }}</div><div style="font-size:13px;font-weight:700">Google Play</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="max-width:1240px;margin:0 auto;padding:46px 40px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid #E3EBDF;margin-top:60px">
+    <img src="assets/travo-logo-en.png" alt="TRAVO" style="height:30px;width:auto;object-fit:contain;opacity:.9">
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <a href="#home" style="font-size:12px;font-weight:600;color:#5C6E62;text-decoration:none;white-space:nowrap" style-hover="color:#1B5E20">{{ d.navHome }}</a>
+      <a href="#about" style="font-size:12px;font-weight:600;color:#5C6E62;text-decoration:none;white-space:nowrap" style-hover="color:#1B5E20">{{ d.navAbout }}</a>
+      <a href="#services" style="font-size:12px;font-weight:600;color:#5C6E62;text-decoration:none;white-space:nowrap" style-hover="color:#1B5E20">{{ d.navServices }}</a>
+      <a href="#cities" style="font-size:12px;font-weight:600;color:#5C6E62;text-decoration:none;white-space:nowrap" style-hover="color:#1B5E20">{{ d.navCities }}</a>
+      <a href="#contact" style="font-size:12px;font-weight:600;color:#5C6E62;text-decoration:none;white-space:nowrap" style-hover="color:#1B5E20">{{ d.navContact }}</a>
+    </div>
+  </div>
+  <div style="max-width:1240px;margin:0 auto;padding:0 40px 30px;text-align:center">
+    <div style="font-size:11.5px;color:#8A968D;font-weight:600">{{ d.footerCopy }}</div>
+    <div style="margin-top:6px;font-size:11px;color:#8A968D;font-weight:500;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:6px"><span style="opacity:.7">✦</span> {{ d.footerBy }} <span style="color:#1B5E20;font-weight:800">AHMAD</span> <span style="opacity:.7">✦</span></div>
+  </div>
+
+  <!-- APP DOWNLOAD MODAL -->
+  <sc-if value="{{ showAppModal }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeAppModal }}" style="position:fixed;inset:0;background:rgba(18,36,26,.55);z-index:90;display:flex;align-items:center;justify-content:center;padding:20px">
+    <div onClick="{{ stopProp }}" style="background:#fff;border-radius:24px;padding:32px;max-width:360px;width:100%;text-align:center;position:relative">
+      <button onClick="{{ closeAppModal }}" style="position:absolute;top:14px;inset-inline-end:14px;width:30px;height:30px;border-radius:50%;border:none;background:#F3F6F1;color:#5C6E62;cursor:pointer;font-size:15px">✕</button>
+      <img src="assets/travo-logo-en.png" alt="TRAVO" style="height:38px;margin:0 auto 16px;display:block">
+      <div style="font-size:16px;font-weight:700;color:#123524">{{ d.modalTitle }}</div>
+      <div style="font-size:12.5px;color:#5C6E62;margin-top:8px;line-height:1.7">{{ d.modalSub }}</div>
+      <div style="width:150px;height:150px;margin:22px auto 0;border-radius:16px;background:#12241A;padding:10px;display:grid;grid-template-columns:repeat(6,1fr);gap:3px">
+        <sc-for list="{{ qrCells }}" as="q" hint-placeholder-count="36"><div style="{{ q.style }}"></div></sc-for>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:22px">
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#12241A;color:#fff;padding:10px;border-radius:11px"><span style="font-size:15px"></span><span style="font-size:11.5px;font-weight:700">App Store</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#12241A;color:#fff;padding:10px;border-radius:11px"><span style="font-size:15px">▶</span><span style="font-size:11.5px;font-weight:700">Google Play</span></div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#1B5E20&quot;,&quot;#0E6E68&quot;,&quot;#2A6FDB&quot;,&quot;#8B4FB0&quot;],&quot;default&quot;:&quot;#0E6E68&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      lang: 'ar', scrolled: false, activeNav: 'home',
+      revealed: { about: false, driver: false, services: false, menu: false, cities: false, contact: false, cta: false },
+      contact: { name: '', email: '', message: '' }, contactSent: false,
+      showAppModal: false,
+    };
+    this._sections = ['home', 'about', 'driver', 'services', 'menu', 'cities', 'contact', 'cta'];
+    this.CITIES_AR = ["الرياض", "جدة", "الدمام", "مكة المكرمة", "المدينة المنورة", "الخبر", "الطائف", "تبوك", "بريدة", "خميس مشيط", "أبها", "حائل"];
+    this.CITIES_EN = ["Riyadh", "Jeddah", "Dammam", "Makkah", "Madinah", "Al Khobar", "Taif", "Tabuk", "Buraidah", "Khamis Mushait", "Abha", "Hail"];
+    this.DICT = {
+      ar: {
+        getApp: "حمّل التطبيق",
+        navHome: "الرئيسية", navAbout: "من نحن", navServices: "الخدمات", navCities: "المدن", navContact: "تواصل معنا",
+        aboutTitle: "منصة سعودية لنقل مدرسي تثقين به", aboutBody: "انطلقنا لنحل مشكلة قلق أولياء الأمور اليومي: من يوصل الطفل؟ هل وصل بأمان؟ ترافو يربط العائلات بسائقين موثّقين، مع تتبع حي ودفع مرن، لنمنحكم راحة البال كل صباح.",
+        aboutSince: "تأسست عام", aboutDrivers: "سائق معتمد", aboutOnTime: "التزام بالمواعيد",
+        aboutPhotoPlaceholder: "ضع صورة لولي أمر وطفله عند الحافلة",
+        driverBadge: "انضم كسائق شريك", driverTitle: "كن سائق ترافو، واكسب دخلاً مرناً بجدول تختاره أنت",
+        driverBody: "انضم إلى شبكة سائقي ترافو لنقل طلاب المدارس. اختر أوقات عملك، احصل على طلبات ثابتة كل صباح ومساء، وتمتع بدفعات أسبوعية موثوقة ودعم فني على مدار الساعة.",
+        driverCta: "قراءة المزيد", driverPhotoPlaceholder: "ضع صورة سائق ترافو",
+        menuTitle: "كل احتياجات رحلة طفلك في مكان واحد", menuSub: "من الحجز إلى الدفع والدعم، صمم ترافو ليغطي رحلة طفلك بالكامل.",
+        menuCard1Title: "رحلاتك", menuCard1Item1: "رحلة يومية", menuCard1Item2: "اشتراك شهري", menuCard1Item3: "حافلة مدرسية", menuCard1Item4: "نشاط لا صفي",
+        menuCard2Title: "مدفوعاتك", menuCard2Item1: "المحفظة الرقمية", menuCard2Item2: "الفواتير", menuCard2Item3: "المرتجعات",
+        menuCard3Title: "أمان طفلك", menuCard3Item1: "تتبع مباشر", menuCard3Item2: "تنبيهات فورية", menuCard3Item3: "زر الطوارئ", menuCard3Item4: "سائقون موثّقون",
+        menuCard4Title: "الدعم", menuCard4Item1: "دردشة فورية", menuCard4Item2: "مركز المساعدة", menuCard4Item3: "الشكاوى والمقترحات",
+        citiesTitle: "نصل إلى عائلاتكم أينما كانوا", citiesSub: "خدمة ترافو متاحة الآن في المدن التالية، ونتوسع باستمرار.",
+        contactTitle: "تواصل معنا", contactSub: "لديك استفسار أو تحتاج مساعدة؟ فريقنا جاهز للرد عليك خلال ساعات العمل.",
+        contactAddress: "الرياض، المملكة العربية السعودية",
+        formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك", formSend: "إرسال الرسالة",
+        formSentTitle: "تم إرسال رسالتك بنجاح", formSentSub: "شكراً لتواصلك معنا، سيقوم فريقنا بالرد عليك في أقرب وقت ممكن.",
+        modalTitle: "امسح الرمز لتحميل التطبيق", modalSub: "وجّه كاميرا هاتفك نحو الرمز، أو اختر متجرك من الأسفل.",
+        heroBadge: "خاص لأولياء الأمور",
+        heroTitle: "نقل مدرسي آمن، بمتابعة حية كل يوم",
+        heroSub: "احجز نقلاً موثوقاً لأطفالك، تابع الرحلة لحظة بلحظة على الخريطة، وادفع بأمان من التطبيق — كل ذلك من مكان واحد.",
+        downloadOn: "تحميل من", getItOn: "احصل عليه من",
+        statFamilies: "عائلة تثق بنا", statRating: "تقييم الآباء", statCities: "مدينة",
+        onTheWay: "في الطريق إليك", minShort: "دقائق",
+        driverSample: "ياسر القحطاني", carSample: "فورد تيريتوري 2023",
+        homeSample: "المنزل", schoolSample: "مدرسة جلوري الدولية",
+        featuresTitle: "كل ما يطمئن قلبك، في تطبيق واحد",
+        featuresSub: "صُمم ترافو ليمنحك راحة البال من باب المنزل حتى بوابة المدرسة.",
+        feat1Title: "سائقون موثّقون", feat1Body: "جميع السائقين يخضعون للتحقق من الهوية والسجل، مع تقييمات حقيقية من أولياء الأمور.",
+        feat2Title: "تتبع حي بالخريطة", feat2Body: "شاهد موقع الحافلة لحظة بلحظة، واستقبل تنبيهات فورية عند الانطلاق والوصول.",
+        feat3Title: "دفع آمن ومرن", feat3Body: "محفظة رقمية، اشتراكات شهرية أو رحلات يومية، وفواتير واضحة بدون مفاجآت.",
+        ctaTitle: "ابدأ رحلة أطفالك الآمنة اليوم", ctaSub: "حمّل تطبيق ترافو وسجّل طفلك الأول خلال دقائق.",
+        footerCopy: "© 2026 ترافو. جميع الحقوق محفوظة.",
+        footerBy: "صُنع بشغف بواسطة",
+      },
+      en: {
+        getApp: "Get the App",
+        navHome: "Home", navAbout: "About Us", navServices: "Services", navCities: "Cities", navContact: "Contact",
+        aboutTitle: "A Saudi platform for school transport you can trust", aboutBody: "We started TRAVO to solve a daily worry for parents: who's picking up my child, and did they arrive safely? TRAVO connects families with verified drivers, live tracking, and flexible payments — for peace of mind every morning.",
+        aboutSince: "Founded in", aboutDrivers: "verified drivers", aboutOnTime: "on-time rate",
+        aboutPhotoPlaceholder: "Drop a photo of a parent and child at the bus",
+        driverBadge: "Become a partner driver", driverTitle: "Drive with TRAVO, earn flexible income on your own schedule",
+        driverBody: "Join TRAVO's network of school-transport drivers. Choose your working hours, get steady morning and afternoon requests, and enjoy reliable weekly payouts with round-the-clock support.",
+        driverCta: "Learn more", driverPhotoPlaceholder: "Drop a photo of a TRAVO driver",
+        menuTitle: "Everything your child's ride needs, in one place", menuSub: "From booking to payments and support, TRAVO covers the full journey.",
+        menuCard1Title: "Your Rides", menuCard1Item1: "Daily ride", menuCard1Item2: "Monthly subscription", menuCard1Item3: "School bus", menuCard1Item4: "After-school activity",
+        menuCard2Title: "Your Payments", menuCard2Item1: "Digital wallet", menuCard2Item2: "Invoices", menuCard2Item3: "Refunds",
+        menuCard3Title: "Your Child's Safety", menuCard3Item1: "Live tracking", menuCard3Item2: "Instant alerts", menuCard3Item3: "SOS button", menuCard3Item4: "Verified drivers",
+        menuCard4Title: "Support", menuCard4Item1: "Live chat", menuCard4Item2: "Help center", menuCard4Item3: "Feedback & complaints",
+        citiesTitle: "We reach families wherever they are", citiesSub: "TRAVO is live in the cities below, and we're expanding steadily.",
+        contactTitle: "Get in Touch", contactSub: "Have a question or need help? Our team is ready to respond during business hours.",
+        contactAddress: "Riyadh, Saudi Arabia",
+        formName: "Full name", formEmail: "Email address", formMessage: "Your message", formSend: "Send Message",
+        formSentTitle: "Your message was sent", formSentSub: "Thanks for reaching out — our team will get back to you shortly.",
+        modalTitle: "Scan to download the app", modalSub: "Point your camera at the code, or pick your store below.",
+        heroBadge: "Built for parents",
+        heroTitle: "Safe school rides, tracked live every day",
+        heroSub: "Book trusted transport for your kids, follow the ride minute by minute on the map, and pay securely — all in one app.",
+        downloadOn: "Download on the", getItOn: "Get it on",
+        statFamilies: "families trust us", statRating: "parent rating", statCities: "cities",
+        onTheWay: "On the way to you", minShort: "min",
+        driverSample: "Yasser Al-Qahtani", carSample: "Ford Territory 2023",
+        homeSample: "Home", schoolSample: "Glory International School",
+        featuresTitle: "Everything that gives you peace of mind",
+        featuresSub: "TRAVO is built to keep your mind at ease from the front door to the school gate.",
+        feat1Title: "Verified drivers", feat1Body: "Every driver is identity-checked and background-verified, with real ratings from parents.",
+        feat2Title: "Live map tracking", feat2Body: "Watch the bus location in real time and get instant alerts on departure and arrival.",
+        feat3Title: "Secure, flexible payments", feat3Body: "Digital wallet, monthly subscriptions or daily rides, and clear invoices — no surprises.",
+        ctaTitle: "Start your child's safe ride today", ctaSub: "Download TRAVO and register your first child in minutes.",
+        footerCopy: "© 2026 TRAVO. All rights reserved.",
+        footerBy: "Made with passion by",
+      },
+    };
+  }
+  componentDidMount() {
+    this._onScroll = () => this.setState({ scrolled: window.scrollY > 8 });
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    this._observer = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          const id = en.target.id;
+          this.setState(s => (s.revealed[id] ? null : { revealed: { ...s.revealed, [id]: true } }));
+        }
+      });
+    }, { threshold: 0.12 });
+
+    this._navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) this.setState({ activeNav: en.target.id });
+      });
+    }, { threshold: 0.5, rootMargin: '-90px 0px -60% 0px' });
+
+    this._sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { this._observer.observe(el); if (id !== 'cta') this._navObserver.observe(el); }
+    });
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._observer) this._observer.disconnect();
+    if (this._navObserver) this._navObserver.disconnect();
+  }
+
+  setContactField(key) {
+    return (e) => this.setState(s => ({ contact: { ...s.contact, [key]: e.target.value } }));
+  }
+  submitContact(e) {
+    e.preventDefault();
+    const c = this.state.contact;
+    if (!c.name.trim() || !c.email.trim() || !c.message.trim()) return;
+    this.setState({ contactSent: true });
+    setTimeout(() => this.setState({ contactSent: false, contact: { name: '', email: '', message: '' } }), 5000);
+  }
+
+  renderVals() {
+    const s = this.state; const d = this.DICT[s.lang];
+    const accent = this.props.accentColor || '#1B5E20';
+    const cities = (s.lang === 'ar' ? this.CITIES_AR : this.CITIES_EN).map(name => ({ name }));
+
+    const navBarStyle = {
+      position: 'sticky', top: 0, zIndex: 50,
+      backgroundImage: 'url(assets/riyadh-skyline.webp)',
+      backgroundSize: 'cover', backgroundPosition: 'center 65%',
+      boxShadow: s.scrolled ? '0 8px 24px -14px rgba(0,0,0,.45)' : 'none',
+      transition: 'box-shadow .25s ease',
+    };
+    const navBarOverlayStyle = {
+      position: 'absolute', inset: 0,
+      background: s.scrolled
+        ? 'linear-gradient(120deg, rgba(9,26,17,.94), rgba(15,46,28,.9) 55%, rgba(9,26,17,.94))'
+        : 'linear-gradient(120deg, rgba(9,26,17,.86), rgba(15,46,28,.7) 55%, rgba(9,26,17,.82))',
+      backdropFilter: s.scrolled ? 'blur(6px)' : 'none',
+      transition: 'background .25s ease',
+    };
+    const navLinkBase = (active) => ({ fontSize: '13px', fontWeight: 700, color: active ? '#8FD65C' : '#F3F6F1', textDecoration: 'none', whiteSpace: 'nowrap', borderBottom: active ? '2px solid #8FD65C' : '2px solid transparent', paddingBottom: '3px', transition: 'color .2s ease' });
+    const navLinkStyle = { home: navLinkBase(s.activeNav === 'home'), about: navLinkBase(s.activeNav === 'about'), services: navLinkBase(s.activeNav === 'services'), cities: navLinkBase(s.activeNav === 'cities'), contact: navLinkBase(s.activeNav === 'contact') };
+
+    const reveal = (id) => ({ opacity: s.revealed[id] ? 1 : 0, transform: s.revealed[id] ? 'none' : 'translateY(26px)', transition: 'opacity .7s ease, transform .7s ease' });
+    const revealStyle = { about: reveal('about'), driver: reveal('driver'), services: reveal('services'), menu: reveal('menu'), cities: reveal('cities'), contact: reveal('contact'), cta: reveal('cta') };
+
+    const driverBandStyle = {
+      background: 'linear-gradient(120deg,#0E1912,#1B2A20 55%,#12241A)',
+      clipPath: 'polygon(0 6%, 100% 0%, 100% 94%, 0% 100%)',
+      position: 'relative',
+    };
+
+    const menuPalette = [
+      { bg: '#0E1B33', text: '#fff', icon: 'rgba(255,255,255,.14)' },
+      { bg: '#E3F7E9', text: '#123524', icon: 'rgba(18,53,36,.08)' },
+      { bg: '#6C4CD8', text: '#fff', icon: 'rgba(255,255,255,.16)' },
+      { bg: accent, text: '#fff', icon: 'rgba(255,255,255,.16)' },
+    ];
+    const menuData = [
+      { title: d.menuCard1Title, items: [ { icon: '📅', label: d.menuCard1Item1 }, { icon: '🔁', label: d.menuCard1Item2 }, { icon: '🚌', label: d.menuCard1Item3 }, { icon: '🎒', label: d.menuCard1Item4 } ] },
+      { title: d.menuCard2Title, items: [ { icon: '💳', label: d.menuCard2Item1 }, { icon: '🧾', label: d.menuCard2Item2 }, { icon: '↩️', label: d.menuCard2Item3 } ] },
+      { title: d.menuCard3Title, items: [ { icon: '📍', label: d.menuCard3Item1 }, { icon: '🔔', label: d.menuCard3Item2 }, { icon: '🆘', label: d.menuCard3Item3 }, { icon: '✅', label: d.menuCard3Item4 } ] },
+      { title: d.menuCard4Title, items: [ { icon: '💬', label: d.menuCard4Item1 }, { icon: '❓', label: d.menuCard4Item2 }, { icon: '📮', label: d.menuCard4Item3 } ] },
+    ];
+    const menuCards = menuData.map((card, i) => {
+      const p = menuPalette[i];
+      return {
+        title: card.title, items: card.items,
+        cardStyle: { background: p.bg, borderRadius: '22px', padding: '28px 24px', display: 'flex', flexDirection: 'column', minHeight: '280px', transition: 'transform .3s ease', cursor: 'default' },
+        titleStyle: { fontSize: '19px', fontWeight: 800, color: p.text },
+        iconStyle: { width: '26px', height: '26px', borderRadius: '50%', background: p.icon, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', flexShrink: 0 },
+        itemStyle: { fontSize: '13px', fontWeight: 600, color: p.text },
+        arrowStyle: { marginTop: 'auto', paddingTop: '20px', fontSize: '20px', color: p.text, opacity: 0.7 },
+      };
+    });
+
+    const qrCells = Array.from({ length: 36 }, (_, i) => {
+      const on = ((i * 7 + 3) % 5) < 2;
+      return { style: { borderRadius: '2px', background: on ? '#fff' : 'transparent' } };
+    });
+
+    const accentBtnStyle = { padding: '10px 20px', borderRadius: '11px', border: 'none', background: 'linear-gradient(135deg,#5DA83A,' + accent + ')', color: '#fff', fontFamily: "'Readex Pro',sans-serif", fontSize: '13px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 10px 22px -12px rgba(27,94,32,.6)', whiteSpace: 'nowrap' };
+    const ctaBannerStyle = { ...reveal('cta'), background: 'linear-gradient(120deg,#123524,' + accent + ')', borderRadius: '28px', padding: '50px 46px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '30px', flexWrap: 'wrap', position: 'relative', overflow: 'hidden' };
+    const formSendStyle = { padding: '13px', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg,#5DA83A,' + accent + ')', color: '#fff', fontFamily: "'Readex Pro',sans-serif", fontSize: '13.5px', fontWeight: 700, cursor: 'pointer' };
+    const heroBadgeStyle = { display: 'inline-flex', alignItems: 'center', gap: '7px', background: '#E7F1E1', border: '1px solid #D3E6C9', padding: '6px 13px', borderRadius: '999px', fontSize: '11.5px', fontWeight: 700, color: accent, whiteSpace: 'nowrap' };
+
+    return {
+      d, dir: s.lang === 'ar' ? 'rtl' : 'ltr', langLabel: s.lang === 'ar' ? 'English' : 'العربية',
+      toggleLang: () => this.setState(st => ({ lang: st.lang === 'ar' ? 'en' : 'ar' })),
+      cities,
+      navBarStyle, navBarOverlayStyle, navLinkStyle, revealStyle, accentBtnStyle, ctaBannerStyle, formSendStyle, heroBadgeStyle, driverBandStyle, menuCards,
+      contact: s.contact, contactSent: s.contactSent, showContactForm: !s.contactSent,
+      setContactName: this.setContactField('name'), setContactEmail: this.setContactField('email'), setContactMessage: this.setContactField('message'),
+      submitContact: (e) => this.submitContact(e),
+      showAppModal: s.showAppModal,
+      openAppModal: () => this.setState({ showAppModal: true }),
+      closeAppModal: () => this.setState({ showAppModal: false }),
+      stopProp: (e) => e.stopPropagation(),
+      qrCells,
+    };
+  }
+}
+</script>
+</body>
+</html>
